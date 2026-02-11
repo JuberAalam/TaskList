@@ -4,35 +4,27 @@ import axios from "axios";
 
 // Use environment variable for backend URL
 const API = axios.create({
-<<<<<<< HEAD
-  baseURL: "https://tasklist-crn1.onrender.com/api",
-=======
-  baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000/api",
->>>>>>> 874c2b5 (Update dashboard and API)
+  baseURL: process.env.REACT_APP_API_URL || "https://tasklist-crn1.onrender.com/api",
 });
 
 /* ================= REQUEST INTERCEPTOR ================= */
-// Automatically attach token to every request
 API.interceptors.request.use(
   (req) => {
     const token = localStorage.getItem("token");
-    if (token) {
-      req.headers.Authorization = `Bearer ${token}`;
-    }
+    if (token) req.headers.Authorization = `Bearer ${token}`;
     return req;
   },
   (error) => Promise.reject(error)
 );
 
 /* ================= RESPONSE INTERCEPTOR ================= */
-// Auto logout if token expired
 API.interceptors.response.use(
   (res) => res,
   (error) => {
     if (error.response?.status === 401) {
       console.warn("Session expired. Logging out...");
       localStorage.removeItem("token");
-      window.location.href = "/login"; // Redirect to login page
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }
@@ -43,7 +35,6 @@ export const registerUser = (data) => API.post("/auth/register", data);
 export const loginUser = (data) => API.post("/auth/login", data);
 
 /* ================= PROFILE APIS ================= */
-// Correct endpoint: "users" plural
 export const fetchProfile = () => API.get("/users/me");
 export const updateProfile = (data) => API.put("/users/me", data);
 
