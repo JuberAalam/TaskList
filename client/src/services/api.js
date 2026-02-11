@@ -3,7 +3,7 @@ import axios from "axios";
 /* ================= AXIOS INSTANCE ================= */
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://tasklist-crn1.onrender.com/api",
 });
 
 /* ================= REQUEST INTERCEPTOR ================= */
