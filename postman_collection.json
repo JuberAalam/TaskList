@@ -1,0 +1,306 @@
+{
+  "info": {
+    "_postman_id": "7a3730d5-a492-4c66-8bf1-ed0506f369fe",
+    "name": "My Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52303654",
+    "_collection_link": "https://go.postman.co/collection/52303654-7a3730d5-a492-4c66-8bf1-ed0506f369fe?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "protocolProfileBehavior": {
+        "protocolVersion": "auto",
+        "strictSSL": true,
+        "followOriginalHttpMethod": true,
+        "followAuthorizationHeader": true,
+        "removeRefererHeaderOnRedirect": true,
+        "insecureHTTPParser": false,
+        "disableCookies": true,
+        "tlsPreferServerCiphers": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Test User\",\r\n  \"email\": \"test@mail.com\",\r\n  \"password\": \"123456\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        },
+        "description": "Register - Create a new user account\n\nPurpose\n- This endpoint creates a new user account in the system. It accepts a JSON payload with the user's name, email, and password, validates the input, and returns the created user's data and an authentication token on success.\n\nRequest URL\n- POST http://localhost:5000/api/auth/register\n\nRequest body (JSON) - required fields\n- name (string): The full name of the user. Validation: required, minimum 2 characters, maximum 100 characters.\n- email (string): The user's email address. Validation: required, must be a valid email format, unique in the system.\n- password (string): The account password. Validation: required, minimum 6 characters (recommend 8+), should include letters and numbers for stronger security.\n\nExample request body\n{\n  \"name\": \"Test User\",\n  \"email\": \"test@mail.com\",\n  \"password\": \"123456\"\n}\n\nSuccessful response\n- Status: 201 Created\n- Example JSON body:\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"<user-id>\",\n    \"name\": \"Test User\",\n    \"email\": \"test@mail.com\"\n  },\n  \"token\": \"<jwt-token>\"\n}\n\nCommon error responses\n- 400 Bad Request: Validation errors. Response typically contains details about which fields failed validation (e.g., missing name, invalid email format, password too short).\n- 409 Conflict: Email already exists. Sent when the provided email is already registered.\n- 500 Internal Server Error: Unexpected server error. Check server logs for details.\n\nTesting notes\n- Run the API server locally and ensure it listens on http://localhost:5000.\n- In Postman, use the active environment or create an environment variable for the base URL, e.g., BASE_URL = http://localhost:5000 and set the request URL to {{BASE_URL}}/api/auth/register if you prefer using environments.\n- Set the request body to raw -> JSON and paste the example JSON above. Send the POST request and check for a 201 response and returned token.\n\nLinks\n- Collection: [My Collection](collection/52303654-7a3730d5-a492-4c66-8bf1-ed0506f369fe)\n- Request: [Register](request/52303654-37c5397a-1307-41ad-a664-4d7aeac2503a)\n\nQuick checklist to test\n- Ensure local server is running at http://localhost:5000\n- (Optional) Set environment variable: BASE_URL = http://localhost:5000\n- Use POST {{BASE_URL}}/api/auth/register or POST http://localhost:5000/api/auth/register\n- Body: raw JSON with name, email, password\n- Expect 201 Created and a JSON response with user data and token"
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"test@mail.com\",\r\n  \"password\": \"123456\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET PROFILE",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OGM4NGYzMmQyMDNmMTUyNDI1NmQ5ZSIsImlhdCI6MTc3MDgxNjk0NiwiZXhwIjoxNzczNDA4OTQ2fQ.8nQxPm21Fzy879ULpGs5tXhHy12fysNKeV5zsG2xJaQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/users/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "users",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Profile",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OGM4NGYzMmQyMDNmMTUyNDI1NmQ5ZSIsImlhdCI6MTc3MDgxNjk0NiwiZXhwIjoxNzczNDA4OTQ2fQ.8nQxPm21Fzy879ULpGs5tXhHy12fysNKeV5zsG2xJaQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Updated Name\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/users/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "users",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET TASKS",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OGM4NGYzMmQyMDNmMTUyNDI1NmQ5ZSIsImlhdCI6MTc3MDgxNjk0NiwiZXhwIjoxNzczNDA4OTQ2fQ.8nQxPm21Fzy879ULpGs5tXhHy12fysNKeV5zsG2xJaQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/tasks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "tasks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CREATE TASK",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OGM4NGYzMmQyMDNmMTUyNDI1NmQ5ZSIsImlhdCI6MTc3MDgxNjk0NiwiZXhwIjoxNzczNDA4OTQ2fQ.8nQxPm21Fzy879ULpGs5tXhHy12fysNKeV5zsG2xJaQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"New Task\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/tasks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "tasks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UPDATE TASK",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OGM4NGYzMmQyMDNmMTUyNDI1NmQ5ZSIsImlhdCI6MTc3MDgxNjk0NiwiZXhwIjoxNzczNDA4OTQ2fQ.8nQxPm21Fzy879ULpGs5tXhHy12fysNKeV5zsG2xJaQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Updated Task\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/tasks/698c89662d203f1524256dae",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "tasks",
+            "698c89662d203f1524256dae"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE TASK",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OGM4NGYzMmQyMDNmMTUyNDI1NmQ5ZSIsImlhdCI6MTc3MDgxNjk0NiwiZXhwIjoxNzczNDA4OTQ2fQ.8nQxPm21Fzy879ULpGs5tXhHy12fysNKeV5zsG2xJaQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/tasks/698c89662d203f1524256dae",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "tasks",
+            "698c89662d203f1524256dae"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
